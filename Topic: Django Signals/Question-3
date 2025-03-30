@@ -1,0 +1,21 @@
+Question 3: By default do django signals run in the same database transaction as the caller? 
+Please support your answer with a code snippet that conclusively proves your stance. The code 
+does not need to be elegant and production ready, we just need to understand your logic.
+
+code
+from django.db import transaction
+from django.dispatch import Signal, receiver
+
+my_signal = Signal()
+
+@receiver(my_signal)
+def my_signal_handler(sender, **kwargs):
+    print("Signal handler executed!")
+    # Example of a database operation
+    # SomeModel.objects.create(field=value)
+
+# Using a transaction
+with transaction.atomic():
+    print("Before sending the signal")
+    my_signal.send(sender=None)
+    print("After sending the signal")
