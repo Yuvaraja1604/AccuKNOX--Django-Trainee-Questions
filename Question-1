@@ -1,0 +1,18 @@
+Question 1: By default are django signals executed synchronously or asynchronously? Please 
+support your answer with a code snippet that conclusively proves your stance. The code does 
+not need to be elegant and production ready, we just need to understand your logic
+
+from django.dispatch import Signal, receiver
+
+# Define a signal
+my_signal = Signal()
+
+@receiver(my_signal)
+def my_signal_handler(sender, **kwargs):
+    print("Signal received!")
+
+# Sending the signal
+print("Before sending the signal")
+my_signal.send(sender=None)
+print("After sending the signal")
+
